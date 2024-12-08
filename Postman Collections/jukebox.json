@@ -1,0 +1,293 @@
+{
+	"info": {
+		"_postman_id": "7f17b703-d082-4f50-8a85-a8f4a110549f",
+		"name": "Postman Library API v2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get books",
+			"id": "f4cfa3ab-db6a-4ae8-808a-47ec86df699b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}/books"
+			},
+			"response": []
+		},
+		{
+			"name": "get fiction books",
+			"id": "127e3b71-dfb7-4c1b-ba6a-29990a593718",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books?genre=fiction&checkedOut=false",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books"
+					],
+					"query": [
+						{
+							"key": "genre",
+							"value": "fiction"
+						},
+						{
+							"key": "checkedOut",
+							"value": "false",
+							"type": "text"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get book by id",
+			"id": "682ca2ef-0ad0-4dc8-ac7f-37b592a9e17a",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "add book",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e833f600-f6b2-4715-86be-5c520defed0c",
+						"exec": [
+							"// save the \"id\" value from the response to a variable named \"id\"\r",
+							"const id = pm.response.json().id\r",
+							"// save the id as a collection variable named \"id\"\r",
+							"pm.collectionVariables.set(\"id\", id)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "5ffc8e8a-8bc2-4535-8138-d14d09c37544",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"title\": \"Navalny.Patriot\",\r\n  \"author\": \"Alexey Navalny\",\r\n  \"genre\": \"fiction\",\r\n  \"yearPublished\": 2024\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/books"
+			},
+			"response": []
+		},
+		{
+			"name": "checkout book",
+			"id": "a7f2a4c8-3a9a-4c43-b0a3-2f851453e32b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"checkedOut\": true \r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/books/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete book",
+			"id": "65462710-4d15-4343-8098-f06344ffafaf",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/books/:id",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"books",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "{{id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "skill check",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dd3c8688-328e-4d5d-bb2d-c9d8a58f6692",
+						"exec": [
+							"// save the \"id\" value from the response to a variable named \"id\"\r",
+							"const actorName = pm.response.json().actorName\r",
+							"// save the id as a collection variable named \"id\"\r",
+							"pm.collectionVariables.set(\"favoriteActor\", actorName)"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"id": "dc51f710-3305-42d8-908e-25ddc08b62eb",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": {
+						"value": "skillcheck",
+						"key": "student-expert"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"actorName\": \"Michael J. Fox\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{skillcheckBaseUrl}}/post?movieName=Back to the future",
+					"host": [
+						"{{skillcheckBaseUrl}}"
+					],
+					"path": [
+						"post"
+					],
+					"query": [
+						{
+							"key": "movieName",
+							"value": "Back to the future"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": {
+			"value": "postmanrulz",
+			"key": "api-key"
+		}
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c5f52e12-ba57-4c62-bf74-af2441415f56",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "080c6c4d-88ba-47e3-a6ed-adfb356d4388",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://library-api.postmanlabs.com"
+		},
+		{
+			"key": "id",
+			"value": ""
+		},
+		{
+			"key": "skillcheckBaseUrl",
+			"value": "https://postman-echo.com"
+		},
+		{
+			"key": "favoriteActor",
+			"value": ""
+		}
+	]
+}
